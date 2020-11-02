@@ -70,7 +70,12 @@ namespace BinarySearchTreeTest
 
 		TEST_METHOD(testLCA)
 		{
-			BinarySearchTree testBST;
+			BinarySearchTree testBST = BinarySearchTree();;
+			//Test empty tree
+			int expectedResult = NULL;
+			Assert::AreEqual(expectedResult, testBST.LCA(2, 4));
+
+			//Test non-empty tree
 			testBST.put(7, '7');
 			testBST.put(8, '8');
 			testBST.put(3, '3');
@@ -80,7 +85,7 @@ namespace BinarySearchTreeTest
 			testBST.put(4, '4');
 			testBST.put(5, '5');
 
-			int expectedResult = 3;
+			expectedResult = 3;
 			Assert::AreEqual(expectedResult, testBST.LCA(2, 4));
 
 			expectedResult = 3;
@@ -95,6 +100,24 @@ namespace BinarySearchTreeTest
 			expectedResult = NULL;
 			Assert::AreEqual(expectedResult, testBST.LCA(7, 3));
 
+			//Test 'single line' tree
+			testBST = BinarySearchTree();
+
+			testBST.put(7, '7');   //        7
+			testBST.put(5, '5');   //       /
+			testBST.put(3, '3');   //      5    
+			testBST.put(1, '1');   //     /
+								   //	 3
+								   //   /
+								   //  1
+			expectedResult = 5;
+			Assert::AreEqual(expectedResult, testBST.LCA(1, 3));
+
+			expectedResult = NULL;
+			Assert::AreEqual(expectedResult, testBST.LCA(7, 3));
+
+			expectedResult = 7;
+			Assert::AreEqual(expectedResult, testBST.LCA(5, 1));
 		}
 	};
 }
